@@ -1,13 +1,16 @@
 HasImages
 =========
 
-Introduction goes here.
+Installation:
+# submodule installieren
+ git submodule add git@git.digineo.de:digineohasimage/digineohasimage.git vendor/plugins/has_images
+
+ 
+# checkout project with
+  git submodule init
+  git submodule update
 
 
-Example
-=======
-
-Example goes here.
 
 
-Copyright (c) 2010 [name of plugin creator], released under the MIT license
+Copyright (c) 2010 Dennis Meise Digineo GmbH www.digineo.de , released under the MIT license
