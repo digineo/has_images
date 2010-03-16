@@ -9,3 +9,7 @@ end
 Paperclip::Attachment.interpolations[:parent] = proc do |attachment, style|
   attachment.instance.parentmodel.image_folder rescue attachment.instance.parentmodel.class.to_s.underscore.pluralize
 end
+
+Paperclip::Attachment.interpolations[:parent_name] = proc do |attachment, style|
+  attachment.instance.parentmodel.seo_name
+end

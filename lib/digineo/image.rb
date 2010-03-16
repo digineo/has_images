@@ -22,8 +22,8 @@ class Digineo::Image < ActiveRecord::Base
      :large => ["640x480", :jpg],
      :huge => ["800x600", :jpg],
      :square => ["200x200", :jpg] }, 
-     :path => ":rails_root/public/images/:parent/:short_id_partition/:basename_:style.:extension",
-     :url        => "/images/:parent/:short_id_partition/:basename_:style.:extension"
+     :path => ":rails_root/public/images/:parent/:short_id_partition/:parent_name_:style.:extension",
+     :url        => "/images/:parent/:short_id_partition/:parent_name_:style.:extension"
 
      
   validates_attachment_presence :file
