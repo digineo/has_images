@@ -11,6 +11,20 @@ Installation:
   git submodule update
 
 
+Migrations
+
+  ./script/generate has_images
+  
+  rake db:migrate
+  
+Integration in your model
+
+  has_images
+  
+Examples:
+  
+  none - it's too easy for examples!    
+
 
 
 Copyright (c) 2010 Dennis Meise Digineo GmbH www.digineo.de , released under the MIT license
