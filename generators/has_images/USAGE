@@ -1,0 +1,8 @@
+Description:
+    Creates migrations for Digineo::ImageType, Digineo::ImageGallery and Digineo::Image 
+
+Example:
+    ./script/generate has_images
+
+    This will create:
+        db/migrate/...create_has_images.rb
