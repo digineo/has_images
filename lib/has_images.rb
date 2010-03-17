@@ -15,12 +15,9 @@ module HasImages
   end
 
   module InstanceMethods
-    def has_avatar?
-      !avatar.nil?
-    end
     
      ## gibt alle Bilder zurück die nicht avatar sind
-    def more_pics
+    def more_images
        images.not_avatar
     end
     
@@ -28,12 +25,12 @@ module HasImages
       images.without_gallery
     end
     
-    def has_more_pics?
-      images.not_avatar.size > 0
+    def has_more_images?
+      images.not_avatar.any?
     end
     
-    def has_gallery?
-      galleries.size > 0
+    def galleries?
+      galleries.any?
     end
     
     def create_image_by_url(url, image_type = nil)
