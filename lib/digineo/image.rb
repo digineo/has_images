@@ -5,15 +5,16 @@ class Digineo::Image < ActiveRecord::Base
   
   belongs_to :parentmodel, :polymorphic => true
   belongs_to :gallery,    :class_name => "Digineo::ImageGallery"
-  belongs_to :image_type, :class_name => "Digineo::ImageType"
-  has_friendly_name
+  belongs_to :image_type, :class_name => "Digineo::ImageType"  
   attr_accessor :file_url
 
   before_create :should_be_avatar?
-  #before_destroy :check_was_avatar
+  before_destroy :unset_avatar if :avatar
   
   named_scope :not_avatar, :conditions => "avatar=0"
   named_scope :without_gallery, :conditions => "gallery_id IS NULL"
+  
+ 
   
   has_attached_file :file, :styles => {
      :thumb => ["150x100", :jpg],
@@ -26,19 +27,28 @@ class Digineo::Image < ActiveRecord::Base
      :url        => "/images/:parent/:short_id_partition/:parent_name_:style.:extension"
 
      
-  validates_attachment_presence :file
-  
+  validates_attachment_presence :file, :unless => :file_url_provided?
+  validates_presence_of :parentmodel
   before_validation :download_remote_file, :if => :file_url_provided?
  
   validates_presence_of :file_remote_url, :if => :file_url_provided?, :message => 'is invalid or inaccessible'
+  
+  def set_avatar
+    parentmodel.avatar.unset_avatar if parentmodel.has_avatar?
+    update_attribute(:avatar, true)
+  end
+  
+  def unset_avatar
+    update_attribute(:avatar, false)
+  end
   
   private
   
   def should_be_avatar?
     self.avatar = !parentmodel.avatar
-    true
+    true # returns true because it's called by before_create
   end
- 
+  
   def file_url_provided?
     !self.file_url.blank?
   end

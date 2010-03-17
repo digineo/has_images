@@ -13,13 +13,12 @@ class CreateHasImages < ActiveRecord::Migration
     
     
     create_table :digineo_images do |t|
-      t.string :name, :null => false
+      t.string :name
       t.text   :text
       t.integer :gallery_id, :on_delete => :set_null, :references => :digineo_image_galleries
       t.integer :image_type_id, :on_delete => :set_null, :references => :digineo_image_types
       t.integer :parentmodel_id, :references => nil
       t.string  :parentmodel_type
-      t.string :friendly_name, :null => false
       t.string :file_file_name
       t.string :file_content_type
       t.string :file_remote_url
@@ -29,7 +28,6 @@ class CreateHasImages < ActiveRecord::Migration
       t.boolean :avatar, :default => false, :null => false
       t.timestamps
     end
-    add_index(:digineo_images, :friendly_name, :unique => true)
   end
 
   def self.down
