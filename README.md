@@ -3,7 +3,7 @@ Digineo HasImages gem
 
 ## Description
   HasImages adds images and galleries to your ActiveRecord models.
-  It comes with the follwing mehtods:
+  It comes with the follwing methods:
 
     model.images # returns a list of all images
     model.avatar # returns the image with the avatar flag e.g. the first image
