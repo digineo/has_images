@@ -12,5 +12,5 @@ Paperclip.interpolates :parent do |attachment, style|
 end
 
 Paperclip.interpolates :parent_name do |attachment, style| 
-  attachment.instance.parentmodel.seo_name
+  attachment.instance.parentmodel.seo_name rescue attachment.instance.parentmodel.to_s
 end
