@@ -8,18 +8,25 @@ module HasImages
   module ClassMethods
     # adds has_images to model
     def has_images(options={})
-      # setting options in image model for the current class
-      #Digineo::Image.has_images_options[self.table_name.to_sym].merge(options)
-      has_many :images, :as => :parentmodel, :dependent => :destroy, :order => 'id ASC', :class_name => "Digineo::Image"
+      
+      # eval is not always evil ;)
+      # we generate a Digineo::Model::Image clase to store the given paperclip configuration in it  
+      eval <<-EOF
+        module Digineo::#{self.class_name} 
+          class Digineo::#{self.class_name}::Image < Digineo::Image
+             has_attached_file :file, #{options.inspect}
+          end
+        end
+      EOF
+      
+      has_many :images, :as => :parentmodel, :dependent => :destroy, :order => 'id ASC', :class_name => "Digineo::#{self.class_name}::Image"
       has_one  :avatar, :as => :parentmodel, :order => 'id ASC', :class_name => "Digineo::Image", :conditions => 'avatar=1'      
       has_many :galleries, :as => :parentmodel, :dependent => :destroy, :class_name => 'Digineo::ImageGallery'            
       
-      #named_scope :with_avatar, :include => :avatar
+      named_scope :with_avatar, :include => :avatar
       
-      send :include, InstanceMethods
+      send :include, InstanceMethods 
     end
-    
-    
   end
 
   module InstanceMethods

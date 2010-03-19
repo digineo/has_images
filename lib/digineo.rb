@@ -1,0 +1,3 @@
+module Digineo
+  
+end

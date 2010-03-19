@@ -1,7 +1,6 @@
 class Digineo::Image < ActiveRecord::Base
   
   set_table_name :digineo_images
-  self.cattr_accessor :has_images_options
   
   belongs_to :parentmodel, :polymorphic => true
   belongs_to :gallery,    :class_name => "Digineo::ImageGallery"
@@ -14,16 +13,7 @@ class Digineo::Image < ActiveRecord::Base
   named_scope :not_avatar, :conditions => "avatar=0"
   named_scope :without_gallery, :conditions => "gallery_id IS NULL"
   
-  
-  has_attached_file :file, :styles => {
-     :thumb  => ["150x100", :jpg],
-     :mini   => ["75x50",   :jpg],
-     :medium => ["300x200", :jpg],
-     :large  => ["640x480", :jpg],
-     :huge   => ["800x600", :jpg],
-     :square => ["200x200", :jpg] }, 
-     :path   => ":rails_root/public/images/:parent/:short_id_partition/:parent_name_:style.:extension",
-     :url    => "/images/:parent/:short_id_partition/:parent_name_:style.:extension"
+  has_attached_file :file
   
   
   validates_attachment_presence :file, :unless => :file_url_provided?
