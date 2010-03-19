@@ -1,6 +1,7 @@
 class Digineo::Image < ActiveRecord::Base
   
   set_table_name :digineo_images
+  self.cattr_accessor :has_images_options
   
   belongs_to :parentmodel, :polymorphic => true
   belongs_to :gallery,    :class_name => "Digineo::ImageGallery"
