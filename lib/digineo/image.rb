@@ -1,6 +1,7 @@
 class Digineo::Image < ActiveRecord::Base
   
   set_table_name :digineo_images
+  store_full_sti_class = true  
   
   belongs_to :parentmodel, :polymorphic => true
   belongs_to :gallery,    :class_name => "Digineo::ImageGallery"
@@ -23,7 +24,7 @@ class Digineo::Image < ActiveRecord::Base
   validates_presence_of :file_remote_url, :if => :file_url_provided?, :message => 'is invalid or inaccessible'
   
   def set_avatar
-    parentmodel.avatar.unset_avatar if parentmodel.has_avatar?
+    parentmodel.avatar.unset_avatar if parentmodel.avatar
     update_attribute(:avatar, true)
   end
   

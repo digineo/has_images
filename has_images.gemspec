@@ -16,6 +16,7 @@ Gem::Specification.new do |s|
     Rakefile
     README.md
     lib/has_images.rb
+    lib/digineo.rb
     lib/digineo/image_gallery.rb
     lib/digineo/image_type.rb
     lib/digineo/image.rb
@@ -27,9 +28,9 @@ Gem::Specification.new do |s|
   s.rubygems_version = '1.3.0'
   s.add_dependency("paperclip", [">= 2.3"])
   s.test_files =%w(
-  	 test/digineo/image_gallery_test.rb
-  	 test/digineo/image_type_test.rb
-  	 test/digineo/image_test.rb
+  	 test/unit/digineo/image_gallery_test.rb
+  	 test/unit/digineo/image_type_test.rb
+  	 test/unit/digineo/image_test.rb
      test/has_images_test.rb
      test/test_helper.rb
   )

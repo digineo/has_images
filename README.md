@@ -32,6 +32,20 @@ add the following to your config/enviroment.rb
     class User < ActiveRecord::Base  
       has_images
     end
+    
+  you can also customize the image-storage with paperclip options
+  
+    class User < ActiveRecord::Base  
+      has_images :styles => {
+       :thumb  => ["150x100", :jpg],
+       :mini   => ["75x50",   :jpg],
+       :medium => ["300x200", :jpg],
+       :large  => ["640x480", :jpg],
+       :huge   => ["800x600", :jpg],
+       :square => ["200x200", :jpg] }, 
+       :path   => ":rails_root/public/images/:attachment/:id_partition/:id_:style.:extension",
+       :url    => "/images/:attachment/:id_partition/:id_:style.:extension"
+    end
   
 ## Examples & usage
 
