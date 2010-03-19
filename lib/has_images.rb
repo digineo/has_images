@@ -20,7 +20,7 @@ module HasImages
       EOF
       
       has_many :images, :as => :parentmodel, :dependent => :destroy, :order => 'id ASC', :class_name => "Digineo::#{self.class_name}::Image"
-      has_one  :avatar, :as => :parentmodel, :order => 'id ASC', :conditions => 'avatar=1', :class_name => "Digineo::#{self.class_name}::Image"      
+      has_one  :avatar, :as => :parentmodel, :conditions => 'avatar=1', :class_name => "Digineo::#{self.class_name}::Image"      
       has_many :galleries, :as => :parentmodel, :dependent => :destroy, :class_name => 'Digineo::ImageGallery'            
       
       named_scope :with_avatar, :include => :avatar

@@ -28,6 +28,9 @@ class CreateHasImages < ActiveRecord::Migration
       t.boolean :avatar, :default => false, :null => false
       t.timestamps
     end
+    add_index(:digineo_image_galleries, [:parentmodel_id, :parentmodel_type])
+    add_index(:digineo_images, [:parentmodel_id, :parentmodel_type, :type])
+    add_index(:digineo_images, [:parentmodel_id, :parentmodel_type, :type, :avatar])
   end
 
   def self.down
