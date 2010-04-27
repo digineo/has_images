@@ -17,7 +17,7 @@ class Digineo::Image < ActiveRecord::Base
   has_attached_file :file
   
   
-  validates_attachment_presence :file, :unless => :file_url_provided?
+  validates_attachment_presence :file, :unless => :file_url_provided?, :on => :create
   validates_presence_of :parentmodel
   before_validation :download_remote_file, :if => :file_url_provided?
  
