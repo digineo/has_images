@@ -8,7 +8,7 @@ module HasImages
   module ClassMethods
     # adds has_images to model
     def has_images(options={})
-      
+      counter_cache = options.delete(:couter_cache) || false
       # eval is not always evil ;)
       # we generate a Digineo::Model::Image clase to store the given paperclip configuration in it  
       eval <<-EOF
@@ -19,7 +19,7 @@ module HasImages
         end
       EOF
       
-      has_many :images, :as => :parentmodel, :dependent => :destroy, :order => 'id ASC', :class_name => "Digineo::#{self.class_name}::Image"
+      has_many :images, :as => :parentmodel, :dependent => :destroy, :order => 'id ASC', :class_name => "Digineo::#{self.class_name}::Image", :counter_cache => counter_cache
       has_one  :avatar, :as => :parentmodel, :conditions => 'avatar=1', :class_name => "Digineo::#{self.class_name}::Image"      
       has_many :galleries, :as => :parentmodel, :dependent => :destroy, :class_name => 'Digineo::ImageGallery'            
       
