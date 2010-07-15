@@ -15,11 +15,12 @@ module HasImages
         module Digineo::#{self.class_name} 
           class Digineo::#{self.class_name}::Image < Digineo::Image
              has_attached_file :file, #{options.inspect}
+             belongs_to :parentmodel, :counter_cache => #{counter_cache.inspect}
           end
         end
       EOF
       
-      has_many :images, :as => :parentmodel, :dependent => :destroy, :order => 'id ASC', :class_name => "Digineo::#{self.class_name}::Image", :counter_cache => counter_cache
+      has_many :images, :as => :parentmodel, :dependent => :destroy, :order => 'id ASC', :class_name => "Digineo::#{self.class_name}::Image"
       has_one  :avatar, :as => :parentmodel, :conditions => 'avatar=1', :class_name => "Digineo::#{self.class_name}::Image"      
       has_many :galleries, :as => :parentmodel, :dependent => :destroy, :class_name => 'Digineo::ImageGallery'            
       
