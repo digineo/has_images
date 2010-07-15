@@ -15,7 +15,7 @@ module HasImages
         module Digineo::#{self.class_name} 
           class Digineo::#{self.class_name}::Image < Digineo::Image
              has_attached_file :file, #{options.inspect}
-             belongs_to :parentmodel, :counter_cache => #{counter_cache.inspect}
+             belongs_to :parentmodel, :polymorphic => true, :counter_cache => #{counter_cache.inspect}
           end
         end
       EOF
