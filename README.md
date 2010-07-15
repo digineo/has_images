@@ -62,7 +62,18 @@ add the following to your config/enviroment.rb
   
 ### Imageupload via form
 
+### enabling Counter-Cache (since version 0.1.7)
 
+    class User < ActiveRecord::Base  
+      has_images :styles => {
+       :thumb  => ["150x100", :jpg]
+      }, 
+       :path   => ":rails_root/public/images/:attachment/:id_partition/:id_:style.:extension",
+       :url    => "/images/:attachment/:id_partition/:id_:style.:extension",
+       :counter_cache => "images_count"
+    end
+    
+    This enables the counter_cache for the user-model. CounterCache is saved in the field "images_count"
 
 
 Copyright (c) 2010 Dennis Meise [Digineo GmbH](http://www.digineo.de/ "Digineo GmbH") , released under the MIT license
