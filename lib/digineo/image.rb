@@ -7,6 +7,7 @@ class Digineo::Image < ActiveRecord::Base
   belongs_to :gallery,    :class_name => "Digineo::ImageGallery"
   belongs_to :image_type, :class_name => "Digineo::ImageType"  
   attr_accessor :file_url
+  attr_accessor :gallery_name
 
   before_create :should_be_avatar?
   before_destroy :unset_avatar if :avatar
@@ -15,6 +16,8 @@ class Digineo::Image < ActiveRecord::Base
   named_scope :without_gallery, :conditions => "gallery_id IS NULL"
   
   has_attached_file :file
+  
+  after_save :set_gallery
   
   
   validates_attachment_presence :file, :unless => :file_url_provided?, :on => :create
@@ -30,6 +33,12 @@ class Digineo::Image < ActiveRecord::Base
   
   def unset_avatar
     update_attribute(:avatar, false)
+  end
+  
+  def set_gallery    
+    return if gallery_id or gallery_name.to_s.empty?
+    self.gallery_id = parentmodel.find_or_create_gallery(gallery_name).id
+    save
   end
   
   private

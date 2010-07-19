@@ -49,6 +49,10 @@ module HasImages
       galleries.any?
     end
     
+    def find_or_create_gallery(name)
+      galleries.find_or_create_by_name(name)
+    end
+    
     def create_image_by_url(url, image_type = nil)
       images.create!(:file_url => url, :image_type => image_type)
     end
