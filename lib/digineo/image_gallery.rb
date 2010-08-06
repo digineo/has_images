@@ -4,6 +4,8 @@ class Digineo::ImageGallery < ActiveRecord::Base
   
   belongs_to :parentmodel, :polymorphic => true
   has_many :images, :class_name => 'Digineo::Image', :foreign_key => :gallery_id
+  has_one  :avatar, :foreign_key => :gallery_id, :class_name => "Digineo::Image"      
+  
   
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => [:parentmodel_id, :parentmodel_type]
