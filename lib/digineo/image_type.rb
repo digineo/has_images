@@ -7,3 +7,8 @@ class Digineo::ImageType < ActiveRecord::Base
   validates_uniqueness_of :name
   
 end
+
+
+class Digineo::ImageType::Exception < Exception
+  
+end
