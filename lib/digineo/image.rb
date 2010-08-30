@@ -20,7 +20,7 @@ class Digineo::Image < ActiveRecord::Base
   named_scope :image_type, lambda { |*types|
     { :conditions => "image_type_id IN (" + types.collect do |type|
         begin
-          Digineo::ImageType.find_by_name(type).id 
+          type.is_a?(Integer) ? type : Digineo::ImageType.find_by_name(type).id 
         rescue 
           raise Digineo::ImageType::Exception, "Could not find ImageType with name #{type}"
         end

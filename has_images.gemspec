@@ -1,9 +1,9 @@
 Gem::Specification.new do |s|
   s.name = %q{has_images}
-  s.version = "0.2"
+  s.version = "0.2.1"
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors     = ["Dennis Meise"]
-  s.date        = %q{2010-08-23}
+  s.date        = %q{2010-08-30}
   s.summary     = %q{HasImages adds images and galleries to your ActiveRecord models.}
   s.homepage = %q{http://github.com/digineo/has_images}
   s.email       = %q{github@digineo.de}
