@@ -156,5 +156,14 @@ add the following to your config/enviroment.rb
       => Digineo::ImageType::Exception: Could not find ImageType with name invalid image type
       
 
+### Image cropping
+
+  has_images also supports image cropping
+  
+    user = User.first
+    user.avatar.crop(:style => :original, :x1 => 1, :y1 => 1, :x2 => 100, :y2 => 100, :width => 100, :height => 100)
+    
+  this will use the original-image and crops the area between 1x1 and 100x100 and regenerates all thumbnails afterwards
+
 Copyright (c) 2010 Dennis Meise [Digineo GmbH](http://www.digineo.de/ "Digineo GmbH") , released under the MIT license
 
