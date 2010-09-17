@@ -1,4 +1,4 @@
-require 'RMagick' 
+#require 'RMagick' 
 class Digineo::Image < ActiveRecord::Base
   
   set_table_name :digineo_images
@@ -63,26 +63,26 @@ class Digineo::Image < ActiveRecord::Base
     end
     
     
-    def crop(params = {:style => :original})
-      
-      args = [params[:x1].to_i, params[:y1].to_i, params[:width].to_i, params[:height].to_i]
-      
-      if old_original = file.to_file(params[:style])
-        orig_img = Magick::ImageList.new
-        orig_img.from_blob(old_original.read)
-        orig_img.crop!(*args)
-        
-        new_img = File.open(file.path(:original), "w")
-        new_img.write(orig_img.to_blob)
-        new_img.close
-        
-        
-        file.reprocess!
-        save
-      else
-        true
-      end
-    end
+#    def crop(params = {:style => :original})
+#      
+#      args = [params[:x1].to_i, params[:y1].to_i, params[:width].to_i, params[:height].to_i]
+#      
+#      if old_original = file.to_file(params[:style])
+#        orig_img = Magick::ImageList.new
+#        orig_img.from_blob(old_original.read)
+#        orig_img.crop!(*args)
+#        
+#        new_img = File.open(file.path(:original), "w")
+#        new_img.write(orig_img.to_blob)
+#        new_img.close
+#        
+#        
+#        file.reprocess!
+#        save
+#      else
+#        true
+#      end
+#    end
     
     private
     
