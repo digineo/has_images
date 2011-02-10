@@ -18,6 +18,7 @@ class CreateHasImages < ActiveRecord::Migration
       t.integer :gallery_id, :on_delete => :set_null, :references => :digineo_image_galleries
       t.integer :image_type_id, :on_delete => :set_null, :references => :digineo_image_types
       t.integer :parentmodel_id, :references => nil
+      t.integer :user_id, :references => nil
       t.string  :parentmodel_type
       t.string :file_file_name
       t.string :file_content_type

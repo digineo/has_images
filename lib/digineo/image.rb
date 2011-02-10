@@ -7,6 +7,7 @@ class Digineo::Image < ActiveRecord::Base
   belongs_to :parentmodel, :polymorphic => true
   belongs_to :gallery,    :class_name => "Digineo::ImageGallery"
   belongs_to :image_type, :class_name => "Digineo::ImageType"  
+  belongs_to :user
   attr_accessor :file_url
   attr_accessor :gallery_name
   attr_accessor :image_type_name
