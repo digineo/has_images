@@ -1,7 +1,7 @@
 module Digineo
 
   autoload :Image, 'digineo/image'
-  autoload :Gallery, 'digineo/image'
-  autoload :Type, 'digineo/image'
+  autoload :ImageGallery, 'digineo/image_gallery'
+  autoload :ImageType, 'digineo/image_type'
 
 end

@@ -5,6 +5,9 @@ require 'digineo'
 # HasImages
 
 module HasImages
+
+  autoload :Scope, 'has_images/scope'
+
   def self.included(base)
     base.send :extend, ClassMethods
   end
@@ -32,7 +35,9 @@ module HasImages
       has_one  :avatar, :as => :parentmodel, :conditions => { :avatar => 1 }, :class_name => "Digineo::#{self.name}::Image"
       has_many :galleries, :as => :parentmodel, :dependent => :destroy, :class_name => 'Digineo::ImageGallery'
 
-      named_scope :with_avatar, :include => :avatar
+      self.extend HasImages::Scope
+
+      scope_method :with_avatar, :include => :avatar
 
       send :include, InstanceMethods
 
