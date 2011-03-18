@@ -84,7 +84,9 @@ module HasImages
         if respond_to? :avatar_build_opts
           abo.merge! avatar_build_opts
         end
-        build_avatar abo
+        Rails.logger.debug abo.inspect
+        avatar = build_avatar abo
+        avatar.save!
       end
     end
 
