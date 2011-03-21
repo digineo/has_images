@@ -35,6 +35,8 @@ module HasImages
       has_one  :avatar, :as => :parentmodel, :conditions => { :avatar => 1 }, :class_name => "Digineo::#{self.name}::Image"
       has_many :galleries, :as => :parentmodel, :dependent => :destroy, :class_name => 'Digineo::ImageGallery'
 
+      after_create :save_avatar
+
       self.extend HasImages::Scope
 
       scope_method :with_avatar, :include => :avatar
@@ -80,13 +82,25 @@ module HasImages
         super
       else
         avatar.update_attribute :avatar, 0 if avatar
-        abo = { :file => image_or_upload }
+        abo = { :file => image_or_upload, :avatar => 1 }
         if respond_to? :avatar_build_opts
           abo.merge! avatar_build_opts
         end
         Rails.logger.debug abo.inspect
         avatar = build_avatar abo
-        avatar.save!
+        if persisted?
+          avatar.save!
+        else
+          @avatar = avatar
+        end
+      end
+    end
+
+    def save_avatar
+      if @avatar
+        @avatar.attributes = avatar_build_opts if respond_to? :avatar_build_opts
+        @avatar.save!
+        @avatar = nil
       end
     end
 
