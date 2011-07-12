@@ -30,7 +30,7 @@ module HasImages
       #    Digineo::#{self.name}::Image
       #  end
       #EOF
-
+      belongs_to :parentmodel, :polymorphic => true, :counter_cache => counter_cache
       has_many :images, :as => :parentmodel, :dependent => :destroy, :order => 'id ASC', :class_name => "Digineo::#{self.name}::Image"
       has_one  :avatar, :as => :parentmodel, :conditions => { :avatar => 1 }, :class_name => "Digineo::#{self.name}::Image"
       has_many :galleries, :as => :parentmodel, :dependent => :destroy, :class_name => 'Digineo::ImageGallery'
