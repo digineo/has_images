@@ -19,13 +19,14 @@ module HasImages
       
       puts "self.name:" + self.name
       
+      puts options.inspect
+      
       options.merge! :use_timestamp => false
       # eval is not always evil ;)
       # we generate a Digineo::Model::Image clase to store the given paperclip configuration in it
       eval <<-EOF
         module Digineo::#{self.name}
           class Digineo::#{self.name}::Image < Digineo::Image
-             puts #{options.inspect}
              has_attached_file :file, #{options.inspect}
              belongs_to :parentmodel, :polymorphic => true, :counter_cache => #{counter_cache.inspect}
           end
