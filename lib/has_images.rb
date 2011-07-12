@@ -25,6 +25,7 @@ module HasImages
       eval <<-EOF
         module Digineo::#{self.name}
           class Digineo::#{self.name}::Image < Digineo::Image
+             puts options.inspect
              has_attached_file :file, #{options.inspect}
              belongs_to :parentmodel, :polymorphic => true, :counter_cache => #{counter_cache.inspect}
           end
