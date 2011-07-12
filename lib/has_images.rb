@@ -16,6 +16,9 @@ module HasImages
     # adds has_images to model
     def has_images(options={})
       counter_cache = options.delete(:counter_cache) || false
+      
+      puts "self.name:" + self.name
+      
       options.merge! :use_timestamp => false
       # eval is not always evil ;)
       # we generate a Digineo::Model::Image clase to store the given paperclip configuration in it
