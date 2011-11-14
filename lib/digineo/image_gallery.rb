@@ -3,8 +3,8 @@ class Digineo::ImageGallery < ActiveRecord::Base
   set_table_name :digineo_image_galleries
   
   belongs_to :parentmodel, :polymorphic => true
-  has_many :images, :class_name => 'Digineo::Image', :foreign_key => :gallery_id
-  has_one  :avatar, :foreign_key => :gallery_id, :class_name => "Digineo::Image"      
+  has_many :images, :class_name => 'Digineo::Image::Base', :foreign_key => :gallery_id
+  has_one  :avatar, :foreign_key => :gallery_id, :class_name => "Digineo::Image::Base"
   
   
   validates_presence_of :name

@@ -19,22 +19,19 @@ module HasImages
       options.merge! :use_timestamp => false
       # eval is not always evil ;)
       # we generate a Digineo::Model::Image clase to store the given paperclip configuration in it
-      eval <<-EOF
-        module Digineo::#{self.name}
-          class Digineo::#{self.name}::Image < Digineo::Image
-             self.attachment_definitions = {}
-             has_attached_file :file, #{options.inspect}
-             belongs_to :parentmodel, :polymorphic => true, :counter_cache => #{counter_cache.inspect}
-          end
-        end
+      ::Digineo::Image.const_set(self.name, Class.new(Digineo::Image::Base){
+             has_attached_file :file, options
+             belongs_to :parentmodel, :polymorphic => true, :counter_cache => counter_cache
+      })
+      eval %Q{
         def digineo_image_class
-          Digineo::#{self.name}::Image
+          Digineo::Image::#{self.name}
         end
-      EOF
-
+      }
+      
       belongs_to :parentmodel, :polymorphic => true, :counter_cache => counter_cache
-      has_many :images, :as => :parentmodel, :dependent => :destroy, :order => 'id ASC', :class_name => "Digineo::#{self.name}::Image"
-      has_one  :avatar, :as => :parentmodel, :conditions => { :avatar => 1 }, :class_name => "Digineo::#{self.name}::Image"
+      has_many :images, :as => :parentmodel, :dependent => :destroy, :order => 'id ASC', :class_name => "Digineo::Image::#{self.name}"
+      has_one  :avatar, :as => :parentmodel, :conditions => { :avatar => 1 }, :class_name => "Digineo::Image::#{self.name}"
       has_many :galleries, :as => :parentmodel, :dependent => :destroy, :class_name => 'Digineo::ImageGallery'
 
       after_create :save_avatar
@@ -80,7 +77,7 @@ module HasImages
     end
 
     def avatar_with_autobuild=(image_or_upload)
-      if image_or_upload.kind_of? Digineo::Image
+      if image_or_upload.kind_of? Digineo::Image::Base
         super
       else
         avatar.update_attribute :avatar, 0 if avatar
