@@ -23,11 +23,6 @@ module HasImages
              has_attached_file :file, options
              belongs_to :parentmodel, :polymorphic => true, :counter_cache => counter_cache
       })
-      eval %Q{
-        def digineo_image_class
-          Digineo::Image::#{self.name}
-        end
-      }
       
       belongs_to :parentmodel, :polymorphic => true, :counter_cache => counter_cache
       has_many :images, :as => :parentmodel, :dependent => :destroy, :order => 'id ASC', :class_name => "Digineo::Image::#{self.name}"
@@ -44,6 +39,10 @@ module HasImages
 
       alias_method_chain :avatar=, :autobuild
 
+    end
+    
+    def digineo_image_class
+      ::Digineo::Image.const_get(self.name)
     end
   end
 
