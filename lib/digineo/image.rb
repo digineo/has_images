@@ -1,7 +1,7 @@
 #require 'RMagick'
 class Digineo::Image < ActiveRecord::Base
 
-  set_table_name :digineo_images
+  self.table_name = :digineo_images
   store_full_sti_class = true
 
   belongs_to :parentmodel, :polymorphic => true
