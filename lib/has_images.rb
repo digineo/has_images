@@ -23,10 +23,10 @@ module HasImages
              has_attached_file :file, options
              belongs_to :parentmodel, :polymorphic => true, :counter_cache => counter_cache
       })
-      
+
       belongs_to :parentmodel, :polymorphic => true, :counter_cache => counter_cache
       has_many :images, :as => :parentmodel, :dependent => :destroy, :order => 'id ASC', :class_name => "Digineo::Image::#{self.name}"
-      has_one  :avatar, :as => :parentmodel, :conditions => { :avatar => 1 }, :class_name => "Digineo::Image::#{self.name}"
+      has_one  :avatar, :as => :parentmodel, :dependent => :destroy, :conditions => { :avatar => 1 }, :class_name => "Digineo::Image::#{self.name}"
       has_many :galleries, :as => :parentmodel, :dependent => :destroy, :class_name => 'Digineo::ImageGallery'
 
       after_create :save_avatar
@@ -40,7 +40,7 @@ module HasImages
       alias_method_chain :avatar=, :autobuild
 
     end
-    
+
     def digineo_image_class
       ::Digineo::Image.const_get(self.name)
     end
