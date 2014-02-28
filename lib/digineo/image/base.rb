@@ -18,8 +18,8 @@ module Digineo
 
       extend HasImages::Scope
 
-      scope_method :not_avatar, :conditions => "avatar=0"
-      scope_method :without_gallery, :conditions => "gallery_id IS NULL"
+      scope_method :not_avatar, -> { where "avatar=0" }
+      scope_method :without_gallery, -> { where "gallery_id IS NULL" }
 
       scope_method :image_type, lambda { |*types|
         { :conditions => "image_type_id IN (" + types.collect do |type|

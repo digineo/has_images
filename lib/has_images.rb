@@ -25,15 +25,15 @@ module HasImages
       })
 
       belongs_to :parentmodel, :polymorphic => true, :counter_cache => counter_cache
-      has_many :images, :as => :parentmodel, :dependent => :destroy, :order => 'id ASC', :class_name => "Digineo::Image::#{self.name}"
-      has_one  :avatar, :as => :parentmodel, :dependent => :destroy, :conditions => { :avatar => 1 }, :class_name => "Digineo::Image::#{self.name}"
+      has_many :images, -> { order('id ASC') }, :as => :parentmodel, :dependent => :destroy, :class_name => "Digineo::Image::#{self.name}"
+      has_one  :avatar, -> { where(avatar: 1) }, :as => :parentmodel, :dependent => :destroy, :class_name => "Digineo::Image::#{self.name}"
       has_many :galleries, :as => :parentmodel, :dependent => :destroy, :class_name => 'Digineo::ImageGallery'
 
       after_create :save_avatar
 
       self.extend HasImages::Scope
 
-      scope_method :with_avatar, :include => :avatar
+      scope_method :with_avatar, -> { includes(:avatar) }
 
       send :include, InstanceMethods
 
