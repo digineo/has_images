@@ -36,6 +36,7 @@ module Digineo
         after_save :set_gallery, :set_image_type
 
         validates_attachment_presence :file, :unless => :file_url_provided?, :on => :create
+        validates_attachment :file, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png"] }
         validates_presence_of :parentmodel
         before_validation :download_remote_file, :if => :file_url_provided?
 
