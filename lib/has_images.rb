@@ -21,6 +21,9 @@ module HasImages
       # we generate a Digineo::Model::Image clase to store the given paperclip configuration in it
       ::Digineo::Image.const_set(self.name, Class.new(Digineo::Image::Base){
              has_attached_file :file, options
+             validates_attachment :file,
+               :content_type => { :content_type => ["image/jpeg", "image/png"] },
+               size: { in: 0..1.megabytes }
              belongs_to :parentmodel, :polymorphic => true, :counter_cache => counter_cache
       })
 
