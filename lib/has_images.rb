@@ -27,7 +27,6 @@ module HasImages
              belongs_to :parentmodel, :polymorphic => true, :counter_cache => counter_cache
       })
 
-      belongs_to :parentmodel, :polymorphic => true, :counter_cache => counter_cache
       has_many :images, -> { order('id ASC') }, :as => :parentmodel, :dependent => :destroy, :class_name => "Digineo::Image::#{self.name}"
       has_one  :avatar, -> { where(avatar: 1) }, :as => :parentmodel, :dependent => :destroy, :class_name => "Digineo::Image::#{self.name}"
       has_many :galleries, :as => :parentmodel, :dependent => :destroy, :class_name => 'Digineo::ImageGallery'
