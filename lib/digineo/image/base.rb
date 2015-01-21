@@ -61,7 +61,7 @@ module Digineo
 
         def set_image_type
           return if image_type_id or image_type_name.to_s.empty?
-          self.image_type_id = ImageType.find_or_create_by_name(image_type_name).id
+          self.image_type_id = ImageType.find_or_create_by(name: image_type_name).id
           save
         end
 
